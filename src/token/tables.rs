@@ -615,7 +615,7 @@ pub fn function_by_id(id: i32) -> Option<String> {
 ///
 /// The canonical keyword spelling, or `value` itself when not a known keyword.
 pub fn canonical_keyword(value: &str) -> String {
-    canonical_from_slice(KEYWORDS, value).map_or_else(|| value.to_string(), core::convert::identity)
+    canonical_from_slice(KEYWORDS, value).unwrap_or_else(|| value.to_string())
 }
 
 /// Returns canonical function casing for a string-form token.
@@ -637,7 +637,7 @@ pub fn canonical_function(value: &str) -> String {
         .iter()
         .find(|(_id, candidate)| candidate.eq_ignore_ascii_case(value))
         .map(|(_id, candidate)| (*candidate).to_string())
-        .map_or_else(|| value.to_string(), core::convert::identity)
+        .unwrap_or_else(|| value.to_string())
 }
 
 /// Returns canonical macro casing for a string-form token.
@@ -653,7 +653,7 @@ pub fn canonical_function(value: &str) -> String {
 ///
 /// The canonical macro spelling, or `value` itself when not a known macro.
 pub fn canonical_macro(value: &str) -> String {
-    canonical_from_slice(MACROS, value).map_or_else(|| value.to_string(), core::convert::identity)
+    canonical_from_slice(MACROS, value).unwrap_or_else(|| value.to_string())
 }
 
 /// Finds the canonical spelling of `value` within a table of names.

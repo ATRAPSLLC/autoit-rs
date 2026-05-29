@@ -231,9 +231,7 @@ impl AutoItBinary {
             .or_else(|| loose_version.map(|version| version.encoding));
 
         let (records, record_diagnostics) = encoding
-            .and_then(|record_encoding| {
-                first_stream_offset(observations.entries()).map(|offset| (record_encoding, offset))
-            })
+            .zip(first_stream_offset(observations.entries()))
             .map_or_else(
                 || Ok::<(Vec<Record>, Vec<RecordParseDiagnostic>), Error>((Vec::new(), Vec::new())),
                 |(record_encoding, offset)| {
