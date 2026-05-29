@@ -267,7 +267,11 @@ impl AutoItBinary {
         Ok(Self {
             input_kind,
             encoding,
-            container: ContainerInfo::from_observations(input_kind, encoding, observations.entries()),
+            container: ContainerInfo::from_observations(
+                input_kind,
+                encoding,
+                observations.entries(),
+            ),
             scripts,
             artifacts,
             strings,
@@ -549,10 +553,12 @@ fn first_file_record_matches(data: &[u8], offset: usize, encoding: Encoding) -> 
 /// The offset from the first [`Observation::PayloadStreamStartFound`] observation,
 /// or `None` when no payload stream start was recorded.
 fn first_stream_offset(observations: &[Observation]) -> Option<usize> {
-    observations.iter().find_map(|observation| match observation {
-        Observation::PayloadStreamStartFound { offset } => Some(*offset),
-        _ => None,
-    })
+    observations
+        .iter()
+        .find_map(|observation| match observation {
+            Observation::PayloadStreamStartFound { offset } => Some(*offset),
+            _ => None,
+        })
 }
 
 /// Returns the encoding proven by the first decrypted `FILE` record marker.
@@ -567,10 +573,12 @@ fn first_stream_offset(observations: &[Observation]) -> Option<usize> {
 /// The encoding from the first [`Observation::FirstFileRecordDecrypted`]
 /// observation, or `None` if no `FILE` marker was decrypted during analysis.
 fn first_file_encoding(observations: &[Observation]) -> Option<Encoding> {
-    observations.iter().find_map(|observation| match observation {
-        Observation::FirstFileRecordDecrypted { encoding, .. } => Some(*encoding),
-        _ => None,
-    })
+    observations
+        .iter()
+        .find_map(|observation| match observation {
+            Observation::FirstFileRecordDecrypted { encoding, .. } => Some(*encoding),
+            _ => None,
+        })
 }
 
 /// Maps a record subtype string to its known script category.
@@ -741,7 +749,11 @@ mod tests {
             [24usize].as_slice(),
             "payload offsets",
         )?;
-        check_eq(binary.observations().entries().len(), 3, "observation count")
+        check_eq(
+            binary.observations().entries().len(),
+            3,
+            "observation count",
+        )
     }
 
     #[test]
@@ -819,7 +831,11 @@ mod tests {
 
         check_eq(binary.input_kind(), InputKind::Pe, "input kind")?;
         check_eq(binary.encoding(), Some(Encoding::Ea05), "encoding")?;
-        check_eq(binary.observations().entries().len(), 4, "observation count")
+        check_eq(
+            binary.observations().entries().len(),
+            4,
+            "observation count",
+        )
     }
 
     #[test]

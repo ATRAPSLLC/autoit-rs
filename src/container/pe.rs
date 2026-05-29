@@ -755,7 +755,11 @@ mod tests {
             }),
             "container resource",
         )?;
-        check_eq(binary.observations().entries().len(), 3, "observation count")
+        check_eq(
+            binary.observations().entries().len(),
+            3,
+            "observation count",
+        )
     }
 
     fn synthetic_pe_with_script_resource() -> Result<Vec<u8>, String> {

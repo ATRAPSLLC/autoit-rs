@@ -235,9 +235,10 @@ fn print_scripts(scripts: &[Script]) {
         );
         subfield(
             "text encoding",
-            script
-                .text()
-                .map_or_else(|| "none".to_string(), |text| format!("{:?}", text.encoding())),
+            script.text().map_or_else(
+                || "none".to_string(),
+                |text| format!("{:?}", text.encoding()),
+            ),
         );
         subfield("decode error", opt_debug(script.decode_error()));
         match script.token_stream() {
@@ -279,10 +280,7 @@ fn print_artifacts(artifacts: &[Artifact]) {
                 artifact.last_write_time()
             ),
         );
-        subfield(
-            "checksum valid",
-            artifact.checksum_valid().to_string(),
-        );
+        subfield("checksum valid", artifact.checksum_valid().to_string());
         subfield(
             "decompression",
             format!("{:?}", artifact.decompression_status()),
