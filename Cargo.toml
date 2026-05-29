@@ -1,0 +1,39 @@
+[package]
+name = "autoit-rs"
+version = "0.1.0"
+edition = "2024"
+authors = ["Johann Kempter <admin@binflip.rs>"]
+rust-version = "1.88"
+description = "Extract and inspect compiled AutoIt2Exe and A3X payloads"
+license = "Apache-2.0"
+repository = "https://github.com/BinFlip/autoit-rs"
+readme = "README.md"
+keywords = ["autoit", "a3x", "parser", "reverse-engineering", "binary-analysis"]
+categories = ["parser-implementations"]
+
+# Test samples are ~15 MB of compiled binaries used only by the integration
+# tests; they would blow past the crates.io size limit and aren't needed by
+# downstream consumers, so keep them out of the published package.
+exclude = ["tests/samples/"]
+
+# Published as `autoit-rs` on crates.io (the bare `autoit` name is taken), but
+# the library is imported as `autoit` so `use autoit::...` keeps working.
+[lib]
+name = "autoit"
+
+# autoit processes adversarial binary inputs. These lints keep all parser and
+# test code explicit about fallibility and prevent panics on malformed samples.
+[lints.rust]
+missing_docs = "deny"
+unsafe_code = "deny"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+arithmetic_side_effects = "deny"
+indexing_slicing = "deny"
+
+[dependencies]
+
+[dev-dependencies]
