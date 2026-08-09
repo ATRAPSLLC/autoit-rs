@@ -2,11 +2,10 @@
 name = "autoit-rs"
 version = "0.1.0"
 edition = "2024"
-authors = ["Johann Kempter <admin@binflip.rs>"]
 rust-version = "1.88"
 description = "Extract and inspect compiled AutoIt2Exe and A3X payloads"
 license = "Apache-2.0"
-repository = "https://github.com/BinFlip/autoit-rs"
+repository = "https://github.com/ATRAPSLLC/autoit-rs"
 readme = "README.md"
 keywords = ["autoit", "a3x", "parser", "reverse-engineering", "binary-analysis"]
 categories = ["parser-implementations"]
