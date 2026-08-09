@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- Recorded ATRAPS LLC as copyright holder and added a `NOTICE` file. No functional change.
+- Dropped the deprecated `authors` field and repointed `repository` at the organisation.
+- Publishing now uses crates.io trusted publishing instead of a stored registry token.
+
 ## 0.1.0
 
 Initial release. Extracts and inspects compiled AutoIt (and AutoHotkey-classic)
