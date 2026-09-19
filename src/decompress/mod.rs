@@ -364,10 +364,7 @@ mod tests {
                 let source_index = cursor
                     .checked_add(bit_index)
                     .ok_or_else(|| "bit offset overflow".to_string())?;
-                let bit = bits
-                    .get(source_index)
-                    .copied()
-                    .map_or(0, core::convert::identity);
+                let bit = bits.get(source_index).copied().unwrap_or(0);
                 byte = (byte << 1) | bit;
             }
             out.push(byte);

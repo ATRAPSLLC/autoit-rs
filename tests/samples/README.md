@@ -20,17 +20,17 @@ variant, and emits the files collected in this directory).
 
 ## Variants
 
-- `<ver>_def.exe` — default compiler (Unicode in the EA05 era, tokenizing in EA06).
-- `<ver>_ansi.exe` — ANSI compiler (`Aut2exeA.exe`), EA05 era only.
-- `<ver>_x64.exe` — 64-bit compiler (`Aut2exe_x64.exe`), 3.3.8.1 and later.
-- `<ver>.a3x` — standalone compiled script (an MZ stub in the EA04 era).
+- `<ver>_def.exe` - default compiler (Unicode in the EA05 era, tokenizing in EA06).
+- `<ver>_ansi.exe` - ANSI compiler (`Aut2exeA.exe`), EA05 era only.
+- `<ver>_x64.exe` - 64-bit compiler (`Aut2exe_x64.exe`), 3.3.8.1 and later.
+- `<ver>.a3x` - standalone compiled script (an MZ stub in the EA04 era).
 
 Toolchains: <https://www.autoitscript.com/autoit3/files/archive/autoit/>
 (`autoit-v<ver>.zip`).
 
 ## Version landmarks (observed by this crate)
 
-- **EA04 (3.1.x)**: AutoIt 3.1.0 / 3.1.1 compile to the **EA04** format — MT
+- **EA04 (3.1.x)**: AutoIt 3.1.0 / 3.1.1 compile to the **EA04** format - MT
   encryption with EA05's field keys, but no per-record checksum field and an
   `EA04` compression magic, embedded in the PE overlay with no `AU3!` signature.
   Supported (password-free scripts).

@@ -293,19 +293,15 @@ fn recover_script(record: &Record) -> Option<Script> {
 /// Returns [`ScriptDecodeError::OddUtf16ByteLength`] when `data` does not contain
 /// a whole number of 16-bit code units.
 fn decode_utf16_lossy(data: &[u8]) -> Result<String, ScriptDecodeError> {
-    let chunks = data.chunks_exact(2);
-    if !chunks.remainder().is_empty() {
+    let (chunks, remainder) = data.as_chunks::<2>();
+    if !remainder.is_empty() {
         return Err(ScriptDecodeError::OddUtf16ByteLength);
     }
-    let code_units: Result<Vec<u16>, ScriptDecodeError> = chunks
-        .map(|chunk| {
-            let bytes: [u8; 2] = chunk
-                .try_into()
-                .map_err(|_err| ScriptDecodeError::OddUtf16ByteLength)?;
-            Ok(u16::from_le_bytes(bytes))
-        })
+    let code_units: Vec<u16> = chunks
+        .iter()
+        .map(|&bytes| u16::from_le_bytes(bytes))
         .collect();
-    Ok(String::from_utf16_lossy(code_units?.as_slice()))
+    Ok(String::from_utf16_lossy(code_units.as_slice()))
 }
 
 #[cfg(test)]

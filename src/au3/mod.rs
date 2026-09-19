@@ -709,7 +709,7 @@ impl Profile {
 /// # Errors
 ///
 /// Propagates the encoding-profiling error for an unsupported encoding, and
-/// converts any partial-parse diagnostic into the matching [`Error`] — including
+/// converts any partial-parse diagnostic into the matching [`Error`] - including
 /// [`Error::truncated`], [`Error::crypto_mismatch`], [`Error::compression_error`],
 /// or [`Error::limit_exceeded`] when the configured limits are reached.
 pub fn parse_records(
@@ -1139,16 +1139,14 @@ fn read_string(
 /// Returns [`Error::truncated`] when `data` has an odd number of bytes (a
 /// dangling half code unit).
 fn decode_utf16_lossy(data: &[u8]) -> Result<String, Error> {
-    let chunks = data.chunks_exact(2);
-    if !chunks.remainder().is_empty() {
+    let (chunks, remainder) = data.as_chunks::<2>();
+    if !remainder.is_empty() {
         return Err(Error::truncated());
     }
     let code_units: Vec<u16> = chunks
-        .map(|chunk| {
-            let bytes: [u8; 2] = chunk.try_into().map_err(|_err| Error::truncated())?;
-            Ok(u16::from_le_bytes(bytes))
-        })
-        .collect::<Result<Vec<_>, Error>>()?;
+        .iter()
+        .map(|&bytes| u16::from_le_bytes(bytes))
+        .collect();
     Ok(String::from_utf16_lossy(code_units.as_slice()))
 }
 
@@ -1379,10 +1377,7 @@ mod tests {
                 let source_index = cursor
                     .checked_add(bit_index)
                     .ok_or_else(|| "bit offset overflow".to_string())?;
-                let bit = bits
-                    .get(source_index)
-                    .copied()
-                    .map_or(0, core::convert::identity);
+                let bit = bits.get(source_index).copied().unwrap_or(0);
                 byte = (byte << 1) | bit;
             }
             out.push(byte);

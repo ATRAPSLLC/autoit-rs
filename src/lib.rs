@@ -114,7 +114,7 @@ impl AutoItBinary {
     /// encoding, then parses the AU3 record stream when one is located:
     /// decrypting and decompressing record payloads, recovering scripts
     /// (including EA06 detokenization), preserving non-script artifacts, and
-    /// extracting raw strings. Record parsing is tolerant — records recovered
+    /// extracting raw strings. Record parsing is tolerant - records recovered
     /// before a later malformed record remain available via [`Self::records`],
     /// with the failure reported in [`Self::record_diagnostics`].
     ///
