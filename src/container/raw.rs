@@ -329,7 +329,7 @@ fn is_known_subtype(subtype: &[u8]) -> bool {
 /// Finds the start of a JB01 record stream (AutoHotkey-classic / AutoIt v2).
 ///
 /// JB01 uses the same 16-byte GUID that prefixes the EA05/EA06 signature, but it
-/// is *not* followed by the `AU3!` tag — instead a marker byte `3`, then a
+/// is *not* followed by the `AU3!` tag - instead a marker byte `3`, then a
 /// length-prefixed passphrase block, then the record stream. Matching the marker
 /// byte distinguishes JB01 from an EA05/EA06 signature sharing the GUID.
 ///

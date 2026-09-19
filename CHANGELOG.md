@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.2
+
+- Bumped `actions/checkout` from v4 to v7 in the CI and publish workflows. The
+  crate still has no runtime dependencies.
+- Fixed lints reported by newer Clippy (`chunks_exact_to_as_chunks`,
+  `map_or_identity`). UTF-16 decoding now uses `as_chunks`, which removes the
+  unreachable per-chunk conversion fallbacks. No behaviour change.
+- Replaced em-dashes and en-dashes in docs, comments, and the changelog with
+  plain hyphens. No functional change.
+
 ## 0.1.1
 
 - Recorded ATRAPS LLC as copyright holder and added a `NOTICE` file. No functional change.
@@ -13,11 +23,11 @@ payloads without executing them.
 
 ### Supported formats
 
-- **EA04** — AutoIt v3.1.x (3.1.0, 3.1.1).
-- **EA05** — AutoIt v3.2.0 – v3.2.4.x.
-- **EA06** — AutoIt v3.2.6 and later (through v3.3.18.0), including tokenized
+- **EA04** - AutoIt v3.1.x (3.1.0, 3.1.1).
+- **EA05** - AutoIt v3.2.0 - v3.2.4.x.
+- **EA06** - AutoIt v3.2.6 and later (through v3.3.18.0), including tokenized
   scripts.
-- **JB01** — AutoHotkey-classic (1.0.x) and AutoIt v2-era payloads, including
+- **JB01** - AutoHotkey-classic (1.0.x) and AutoIt v2-era payloads, including
   the adaptive-Huffman compression.
 
 Containers: PE executables, `.a3x` files, and carved record streams.

@@ -212,7 +212,7 @@ fn generated_fixtures_match_ground_truth() -> Result<(), String> {
         )?;
         eq(case.file, "records", binary.records().len(), case.records)?;
 
-        // Every record must validate — guards EA05 per-record key regressions.
+        // Every record must validate - guards EA05 per-record key regressions.
         for record in binary.records() {
             eq(case.file, "checksum_valid", record.checksum_valid(), true)?;
         }

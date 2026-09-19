@@ -271,13 +271,12 @@ fn push_utf16(
     let Some(bytes) = data.get(start..end) else {
         return;
     };
-    let units: Option<Vec<u16>> = bytes
-        .chunks_exact(2)
-        .map(|chunk| read_u16_at(chunk, 0))
+    let units: Vec<u16> = bytes
+        .as_chunks::<2>()
+        .0
+        .iter()
+        .map(|&pair| u16::from_le_bytes(pair))
         .collect();
-    let Some(units) = units else {
-        return;
-    };
     findings.push(StringFinding {
         record_index,
         offset: start,
